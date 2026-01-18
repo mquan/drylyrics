@@ -1,0 +1,238 @@
+:root {
+  color-scheme: light;
+  --ink: #11120f;
+  --muted: #56584a;
+  --paper: #f8f4ef;
+  --accent: #f0714b;
+  --accent-dark: #c34c2c;
+  --panel: #fffaf2;
+  --border: rgba(17, 18, 15, 0.12);
+  --grid: rgba(17, 18, 15, 0.05);
+  --shadow: 0 25px 60px rgba(17, 18, 15, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Manrope", sans-serif;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 15% 20%, rgba(240, 113, 75, 0.12), transparent 55%),
+    radial-gradient(circle at 80% 10%, rgba(168, 201, 168, 0.2), transparent 50%),
+    var(--paper);
+  min-height: 100vh;
+}
+
+.page {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: auto 1fr;
+  padding: 24px 24px 32px;
+  gap: 16px;
+}
+
+.top-bar {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  font-size: 1rem;
+  margin: 0 0 12px;
+  color: var(--muted);
+}
+
+h1 {
+  font-family: "Instrument Serif", serif;
+  font-size: clamp(2rem, 2.8vw, 2.8rem);
+  line-height: 1.05;
+  margin: 0;
+}
+
+.top-meta {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.workspace {
+  display: grid;
+  grid-template-rows: minmax(70vh, 1.2fr) auto;
+  gap: 16px;
+  min-height: 0;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  padding: 16px 18px;
+  box-shadow: var(--shadow);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+.panel-header h2 {
+  font-family: "Instrument Serif", serif;
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.controls {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+}
+
+.controls label {
+  display: grid;
+  gap: 6px;
+  font-size: 0.75rem;
+  color: var(--muted);
+}
+
+.controls input {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 6px 8px;
+  font-size: 0.9rem;
+}
+
+textarea {
+  flex: 1;
+  resize: none;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  padding: 12px 14px;
+  font-family: "Manrope", sans-serif;
+  font-size: 0.95rem;
+  background: #fff;
+  box-shadow: inset 0 1px 0 rgba(17, 18, 15, 0.04);
+  min-height: 120px;
+}
+
+.panel-actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+button {
+  border: none;
+  border-radius: 999px;
+  padding: 12px 22px;
+  font-weight: 600;
+  background: var(--accent);
+  color: #fff;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 12px 24px rgba(240, 113, 75, 0.28);
+}
+
+button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 16px 30px rgba(240, 113, 75, 0.35);
+}
+
+#stats {
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+.viz {
+  position: relative;
+  min-height: 0;
+  flex: 1;
+}
+
+.hint {
+  margin: 4px 0 0;
+  font-size: 0.8rem;
+  color: var(--muted);
+}
+
+#graph {
+  flex: 1;
+  min-height: 70vh;
+  border-radius: 18px;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.6)),
+    repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 24px,
+      var(--grid) 24px,
+      var(--grid) 25px
+    ),
+    repeating-linear-gradient(
+      90deg,
+      transparent,
+      transparent 24px,
+      var(--grid) 24px,
+      var(--grid) 25px
+    );
+  overflow: hidden;
+  min-height: 0;
+  position: relative;
+}
+
+svg {
+  width: 100%;
+  height: 100%;
+}
+
+.edge {
+  stroke: rgba(17, 18, 15, 0.4);
+  stroke-width: 1.5px;
+}
+
+.node text {
+  font-size: 1.05rem;
+  font-weight: 600;
+  pointer-events: none;
+}
+
+.node rect {
+  stroke-width: 1.5px;
+}
+
+.tooltip {
+  position: absolute;
+  pointer-events: none;
+  background: rgba(17, 18, 15, 0.9);
+  color: #fff;
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: 0.8rem;
+  transform: translate(-50%, -120%);
+  opacity: 0;
+  transition: opacity 0.12s ease;
+  white-space: nowrap;
+}
+
+@media (max-width: 960px) {
+  .top-bar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .controls {
+    flex-wrap: wrap;
+  }
+}
