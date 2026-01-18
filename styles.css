@@ -49,6 +49,41 @@ body {
   color: var(--muted);
 }
 
+.home-link {
+  color: inherit;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.home-link:hover {
+  color: var(--accent-dark);
+}
+
+.logo-node {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px 10px;
+  border-radius: 10px;
+  background: #3b7dd8;
+  border: 1px solid #2f67b3;
+  color: #fff;
+  letter-spacing: 0.08em;
+}
+
+.home-link:hover .logo-node {
+  background: #d94b60;
+  border-color: #b83b4d;
+  color: #fff;
+}
+
+.logo-text {
+  font-weight: 700;
+  color: var(--ink);
+}
+
 h1 {
   font-family: "Instrument Serif", serif;
   font-size: clamp(2rem, 2.8vw, 2.8rem);
@@ -60,6 +95,16 @@ h1 {
   display: flex;
   align-items: center;
   gap: 16px;
+}
+
+.top-link {
+  color: var(--accent-dark);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.top-link:hover {
+  text-decoration: underline;
 }
 
 .workspace {
