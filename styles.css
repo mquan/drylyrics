@@ -128,8 +128,28 @@ h1 {
 .panel-header {
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 16px;
+  flex-wrap: wrap;
+}
+
+.sample-links {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  font-size: 0.95rem;
+}
+
+.sample-link {
+  color: var(--muted);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+}
+
+.sample-link:hover {
+  color: var(--accent-dark);
+  border-bottom-color: var(--accent-dark);
 }
 
 .panel-header h2 {

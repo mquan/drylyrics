@@ -4,15 +4,11 @@ const graphEl = document.getElementById("graph");
 const statsEl = document.getElementById("stats");
 const MIN_REPEAT = 2;
 
-const DEFAULT_SAMPLE = `Twinkle, twinkle, little star, how I wonder what you are. Up above the world so high,
-like a diamond in the sky. Twinkle, twinkle, little star, how I wonder what you are.
-When the blazing sun is set, and the grass with dew is wet. Then you show your little
-light, twinkle, twinkle all the night. Twinkle, twinkle little star, how I wonder what you
-are.
-Then the traveler in the dark thanks you for your tiny spark. How could he see where to
-go if you did not twinkle so? Twinkle, twinkle little star, how I wonder what you are.
-As your bright and tiny spark lights the traveler in the dark, though I know not what you
-are, twinkle, twinkle, little star. Twinkle, twinkle, little star, how I wonder what you are.`;
+const SAMPLE_TEXTS_ENCODED = [
+  "T2xkIE1hY2RvbmFsZCBoYWQgYSBmYXJtLCBlaWVpbwpBbmQgb24gaGlzIGZhcm0gaGUgaGFkIHNvbWUgY293cywgZWllaW8KV2l0aCBhICJtb28tbW9vIiBoZXJlIGFuZCBhICJtb28tbW9vIiB0aGVyZQpIZXJlIGEgIm1vbyIgdGhlcmUgYSAibW9vIgpFdmVyeXdoZXJlIGEgIm1vby1tb28iCgpPbGQgTWFjZG9uYWxkIGhhZCBhIGZhcm0sIGVpZWlvCk9sZCBNYWNkb25hbGQgaGFkIGEgZmFybSwgZWllaW8KQW5kIG9uIGhpcyBmYXJtIGhlIGhhZCBzb21lIGR1Y2tzLCBlaWVpbwpXaXRoIGEgInF1YWNrLCBxdWFjayIgaGVyZSBhbmQgYSAicXVhY2ssIHF1YWNrIiB0aGVyZQpIZXJlIGEgInF1YWNrIiB0aGVyZSBhICJxdWFjayIKRXZlcnl3aGVyZSBhICJxdWFjaywgcXVhY2siCgpPbGQgTWFjZG9uYWxkIGhhZCBhIGZhcm0sIGVpZWlvCk9sZCBNYWNkb25hbGQgaGFkIGEgZmFybSwgZWllaW8KQW5kIG9uIGhpcyBmYXJtIGhlIGhhZCBzb21lIHBpZ3MsIGVpZWlvCgpXaXRoIGEgIm9pbmssIG9pbmsiIGhlcmUgYW5kIGEgIm9pbmssIG9pbmsiIHRoZXJlCkhlcmUgYSAib2luayIgdGhlcmUgYSAib2luayIKRXZlcnl3aGVyZSBhIG9pbmstb2luawoKT2xkIE1hY2RvbmFsZCBoYWQgYSBmYXJtLCBlaWVpbw%3D%3D",
+  "VHdpbmtsZSwgdHdpbmtsZSwgbGl0dGxlIHN0YXIsIGhvdyBJIHdvbmRlciB3aGF0IHlvdSBhcmUuIFVwIGFib3ZlIHRoZSB3b3JsZCBzbyBoaWdoLApsaWtlIGEgZGlhbW9uZCBpbiB0aGUgc2t5LiBUd2lua2xlLCB0d2lua2xlLCBsaXR0bGUgc3RhciwgaG93IEkgd29uZGVyIHdoYXQgeW91IGFyZS4KV2hlbiB0aGUgYmxhemluZyBzdW4gaXMgc2V0LCBhbmQgdGhlIGdyYXNzIHdpdGggZGV3IGlzIHdldC4gVGhlbiB5b3Ugc2hvdyB5b3VyIGxpdHRsZQpsaWdodCwgdHdpbmtsZSwgdHdpbmtsZSBhbGwgdGhlIG5pZ2h0LiBUd2lua2xlLCB0d2lua2xlIGxpdHRsZSBzdGFyLCBob3cgSSB3b25kZXIgd2hhdCB5b3UKYXJlLgpUaGVuIHRoZSB0cmF2ZWxlciBpbiB0aGUgZGFyayB0aGFua3MgeW91IGZvciB5b3VyIHRpbnkgc3BhcmsuIEhvdyBjb3VsZCBoZSBzZWUgd2hlcmUgdG8KZ28gaWYgeW91IGRpZCBub3QgdHdpbmtsZSBzbz8gVHdpbmtsZSwgdHdpbmtsZSBsaXR0bGUgc3RhciwgaG93IEkgd29uZGVyIHdoYXQgeW91IGFyZS4KQXMgeW91ciBicmlnaHQgYW5kIHRpbnkgc3BhcmsgbGlnaHRzIHRoZSB0cmF2ZWxlciBpbiB0aGUgZGFyaywgdGhvdWdoIEkga25vdyBub3Qgd2hhdCB5b3UKYXJlLCB0d2lua2xlLCB0d2lua2xlLCBsaXR0bGUgc3Rhci4gVHdpbmtsZSwgdHdpbmtsZSwgbGl0dGxlIHN0YXIsIGhvdyBJIHdvbmRlciB3aGF0IHlvdSBhcmUu",
+  "VGhlIHdoZWVscyBvbiB0aGUgYnVzIGdvLCBSb3VuZCBhbmQgcm91bmQKUm91bmQgYW5kIHJvdW5kClJvdW5kIGFuZCByb3VuZApUaGUgd2hlZWxzIG9uIHRoZSBidXMgZ28KUm91bmQgYW5kIHJvdW5kCkFsbCB0aHJvdWdoIHRoZSB0b3duCgpUaGUgd2lwZXJzIG9uIHRoZSBidXMgZ28sIFN3aXNoLCBzd2lzaCwgc3dpc2gKU3dpc2gsIHN3aXNoLCBzd2lzaAoiU3dpc2gsIHN3aXNoLCBzd2lzaCIKVGhlIHdpcGVycyBvbiB0aGUgYnVzIGdvLCAiU3dpc2gsIHN3aXNoLCBzd2lzaCIKQWxsIHRocm91Z2ggdGhlIHRvd24KClRoZSBkb29yIG9uIHRoZSBidXMgZ29lcywgIk9wZW4gYW5kIHNodXQiCiJPcGVuIGFuZCBzaHV0IgoiT3BlbiBhbmQgc2h1dCIKVGhlIGRvb3Igb24gdGhlIGJ1cyBnb2VzLCAiT3BlbiBhbmQgc2h1dCIKQWxsIHRocm91Z2ggdGhlIHRvd24KClRoZSBkcml2ZXIgb24gdGhlIGJ1cyBnb2VzLCAiTW92ZSBvbiBiYWNrIgoiTW92ZSBvbiBiYWNrIgoiTW92ZSBvbiBiYWNrIgpUaGUgZHJpdmVyIG9uIHRoZSBidXMgZ29lcywgIk1vdmUgb24gYmFjayIKQWxsIHRocm91Z2ggdGhlIHRvd24KClRoZSBwZW9wbGUgb24gdGhlIGJ1cyBnbywgdXAgYW5kIGRvd24KVXAgYW5kIGRvd24KVXAgYW5kIGRvd24KVGhlIHBlb3BsZSBvbiB0aGUgYnVzIGdvLCB1cCBhbmQgZG93bgpBbGwgdGhyb3VnaCB0aGUgdG93bgoKVGhlIGhvcm4gb24gdGhlIGJ1cyBnb2VzLCAiQmVlcCwgYmVlcCwgYmVlcCIKIkJlZXAsIGJlZXAsIGJlZXAiCiJCZWVwLCBiZWVwLCBiZWVwIgpUaGUgaG9ybiBvbiB0aGUgYnVzIGdvZXMsICJCZWVwLCBiZWVwLCBiZWVwIgpBbGwgdGhyb3VnaCB0aGUgdG93bg%3D%3D",
+];
 
 function encodeBase64(text) {
   return btoa(unescape(encodeURIComponent(text)));
@@ -30,11 +26,16 @@ function getLyricsFromQuery() {
   const params = new URLSearchParams(window.location.search);
   const encoded = params.get("t");
   if (!encoded) return null;
-  return decodeBase64(encoded);
+  return { encoded, decoded: decodeBase64(encoded) };
 }
 
-const initialLyrics = getLyricsFromQuery();
-lyricsEl.value = initialLyrics || DEFAULT_SAMPLE;
+const initialFromQuery = getLyricsFromQuery();
+const fallbackEncoded =
+  SAMPLE_TEXTS_ENCODED[Math.floor(Math.random() * SAMPLE_TEXTS_ENCODED.length)];
+const initialDecoded = initialFromQuery
+  ? initialFromQuery.decoded
+  : decodeBase64(decodeURIComponent(fallbackEncoded));
+lyricsEl.value = initialDecoded || "";
 
 function lineToSegments(line) {
   const segments = [];
@@ -57,7 +58,16 @@ function lineToSegments(line) {
 
   for (let i = 0; i < line.length; i += 1) {
     const ch = line[i];
-    if (/[a-zA-Z0-9']/.test(ch)) {
+    const isWordChar = /[a-zA-Z0-9]/.test(ch);
+    const isApostrophe = ch === "'" || ch === "’";
+    const isInnerApostrophe =
+      isApostrophe &&
+      i > 0 &&
+      i < line.length - 1 &&
+      /[a-zA-Z0-9]/.test(line[i - 1]) &&
+      /[a-zA-Z0-9]/.test(line[i + 1]);
+
+    if (isWordChar || isInnerApostrophe) {
       currentToken += ch;
       continue;
     }
@@ -110,6 +120,11 @@ function chooseBestPhrase(tokens, index, stats, minRepeat) {
   let bestScore = (counts.get(tokens[index]) || 1) * 1;
 
   for (let len = 2; len <= maxLen; len += 1) {
+    const baseToken = tokens[index];
+    const isRepeatRun = tokens.slice(index, index + len).every((token) => token === baseToken);
+    if (isRepeatRun) {
+      continue;
+    }
     const phrase = tokens.slice(index, index + len).join(" ");
     const count = counts.get(phrase) || 0;
 
