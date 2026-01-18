@@ -7,8 +7,20 @@ DryLyrics is a fun project for visualizing song lyrics as a phrase graph.
 - Directed edges represent flow direction between phrases.
 - The more a phrase repeats, the larger its size and the hotter its color.
 
-![Old MacDonald Had a Farm phrase graph](images/old-macdonald-had-a-farm.png)
+<img
+  src="images/old-macdonald-had-a-farm.png"
+  alt="Old MacDonald Had a Farm phrase graph"
+  width="700"
+/>
 
-![Twinkle Twinkle Little Star phrase graph](images/twinkle-twinkle-little-star.png)
+<img
+  src="images/twinkle-twinkle-little-star.png"
+  alt="Twinkle Twinkle Little Star phrase graph"
+  width="700"
+/>
 
-![Wheels on the Bus phrase graph](images/wheels-on-the-bus.png)
+<img
+  src="images/wheels-on-the-bus.png"
+  alt="Wheels on the Bus phrase graph"
+  width="700"
+/>
